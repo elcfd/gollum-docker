@@ -15,11 +15,15 @@ tasks:
 
   query:
     summary: Query the version of gollum
+    deps:
+      - task: build
     cmds:
       - ./image_creator.sh query {{.VERSION}}
 
   check:
     summary: Check the version of gollum
+    deps:
+      - task: build
     cmds:
       - ./image_creator.sh check {{.VERSION}}
 

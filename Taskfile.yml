@@ -1,0 +1,32 @@
+version: '2'
+
+silent: true
+
+tasks:
+  default:
+    summary: Build and release the docker image
+    cmds:
+      - task: release
+
+  build:
+    summary: Build the docker image
+    cmds:
+      - ./image_creator.sh build {{.VERSION}}
+
+  query:
+    summary: Query the version of gollum
+    cmds:
+      - ./image_creator.sh query {{.VERSION}}
+
+  check:
+    summary: Check the version of gollum
+    cmds:
+      - ./image_creator.sh check {{.VERSION}}
+
+  release:
+    summary: Push the built image to Dockerhub
+    deps:
+      - task: build
+      - task: check
+    cmds:
+      - ./image_creator.sh release {{.VERSION}}

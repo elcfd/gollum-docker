@@ -37,7 +37,7 @@ The Dockerhub image parameters are specified at the top of the [image creator](i
 The command to build is:
 
 ```
-task build
+task VERSION=<version> build
 ```
 
 ### Pushing the Built Images to Docker Hub
@@ -45,7 +45,7 @@ task build
 The command to push the built images is:
 
 ```
-task release
+task VERSION=<version> release
 ```
 
 **NB.** Successful authentication with Dockerhub must have been completed before running this command.

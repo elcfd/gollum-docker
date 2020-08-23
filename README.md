@@ -1,5 +1,6 @@
 # Gollum Docker
 
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/elcfd/gollum-docker/gollum%20docker%20ci/master)](https://github.com/elcfd/gollum-docker/actions)
 [![Docker Pulls](https://img.shields.io/docker/pulls/elcfd/gollum)](https://hub.docker.com/r/elcfd/gollum)
 
 This project creates a [Gollum](https://github.com/gollum/gollum) docker image - "Gollum is a simple wiki system based on top of Git".

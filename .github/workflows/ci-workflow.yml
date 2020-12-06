@@ -26,3 +26,8 @@ jobs:
         run: task VERSION="$VERSION" build
       - name: check
         run: task VERSION="$VERSION" check
+      - name: release
+        if: contains(github.ref, 'release')
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+          task VERSION="$VERSION" release

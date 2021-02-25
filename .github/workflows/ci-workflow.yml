@@ -6,7 +6,7 @@ on:
 
 env:
   DOCKERHUB_USERNAME: elcfd
-  VERSION: 5.2
+  VERSION: 5.2.1
 
 jobs:
   ci:

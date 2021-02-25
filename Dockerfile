@@ -11,7 +11,8 @@ RUN         apt -y update && \
             gem install \
                 github-linguist \
                 gollum \
-                org-ruby
+                org-ruby \
+                thin
 
 WORKDIR     /wiki
 ENTRYPOINT  ["gollum", "--port", "80"]

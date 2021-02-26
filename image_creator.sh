@@ -3,8 +3,7 @@
 DOCKERHUB_USERNAME="elcfd"
 REPOSITORY="gollum"
 
-usage()
-{
+function usage {
     echo "Incorrect args - must specify build, query, check or release with image version"
     echo -e "\n   ./image_creator.sh <action> <image version>"
     exit 1
@@ -18,15 +17,13 @@ version=$1
 
 # args: 
     # image tag
-build()
-{
+function build {
     docker build -t "$1:$version-buster" .
 }
 
 # args: 
     # image tag
-release()
-{
+function release {
     docker image push "$1:$version-buster"
     docker tag "$1:$version-buster" "$1:latest"
     docker image push "$1:latest"
@@ -34,17 +31,15 @@ release()
 
 # args: 
     # image tag
-query()
-{
-    tmp=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
-    docker container run -d --name $tmp "$1:$version-buster" > /dev/null 2>&1
-    gemversion=$(docker container exec $tmp gem list | grep "^gollum " | cut -d "(" -f2 | cut -d ")" -f1)
-    docker container kill $tmp > /dev/null 2>&1
-    docker container rm $tmp > /dev/null 2>&1
+function query {
+    tmp=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | fold -w 16 | head -n 1)
+    docker container run -d --name "$tmp" "$1:$version-buster" > /dev/null 2>&1
+    gemversion=$(docker container exec "$tmp" gem list | grep "^gollum " | cut -d "(" -f2 | cut -d ")" -f1)
+    docker container kill "$tmp" > /dev/null 2>&1
+    docker container rm "$tmp" > /dev/null 2>&1
 }
 
-check()
-{
+function check {
     if [[ "$version" == "$gemversion" ]]
     then
         echo "** Gollum version match - version $version"

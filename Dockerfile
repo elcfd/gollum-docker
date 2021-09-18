@@ -6,7 +6,7 @@ RUN         apt -y update && \
             apt -y install \
                 libicu-dev \
                 cmake \
-                python-pygments && \
+                python3-pygments && \
             rm -rf /var/lib/apt/lists/* && \
             gem install \
                 github-linguist \

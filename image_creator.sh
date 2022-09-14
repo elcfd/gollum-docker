@@ -69,15 +69,20 @@ then
     release "$DOCKERHUB_USERNAME/$REPOSITORY"
 elif [[ "$action" == "query" ]]
 then
-    query "$DOCKERHUB_USERNAME/$REPOSITORY"
-    echo "** Gollum version is: $gemversion"
+    if [ "$custom" = true ]
+    then 
+        echo "** Using custom version - skipping version query"
+    else
+        query "$DOCKERHUB_USERNAME/$REPOSITORY"
+        echo "** Gollum version is: $gemversion"
+    fi
 elif [[ "$action" == "check" ]]
 then
-    query "$DOCKERHUB_USERNAME/$REPOSITORY"
     if [ "$custom" = true ]
     then 
         echo "** Using custom version - skipping version check"
     else
+        query "$DOCKERHUB_USERNAME/$REPOSITORY"
         check
     fi
 else

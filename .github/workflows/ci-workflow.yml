@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: install taskfile
-        uses: Arduino/actions/setup-taskfile@master
+        uses: arduino/setup-task@v1
       - name: source code checkout
         uses: actions/checkout@v2
       - name: build

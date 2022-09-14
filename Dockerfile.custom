@@ -1,0 +1,37 @@
+FROM        ruby AS builder
+
+WORKDIR     /build
+
+RUN         apt -y update && \
+            apt -y install cmake && \
+            git clone --depth 1 -b mermaid https://github.com/elcfd/gollum && \
+            cd gollum && \
+            bundle install && \
+            rake build
+
+FROM        ruby
+
+LABEL       maintainer  "elcfd <elcfd@whitetree.xyz>"
+
+COPY        --from=builder /build/gollum/pkg/gollum-* /tmp/
+
+WORKDIR     /tmp
+
+RUN         apt -y update && \
+            apt -y install \
+                libicu-dev \
+                cmake \
+                python3-pygments && \
+            rm -rf /var/lib/apt/lists/* && \
+            gem install \
+                github-linguist \
+                org-ruby \
+                gollum-* \
+                mini_racer \
+                thin && \
+            rm gollum-*
+
+WORKDIR     /wiki
+ENTRYPOINT  ["gollum", "--port", "80"]
+
+EXPOSE      80

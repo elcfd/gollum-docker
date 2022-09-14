@@ -14,19 +14,31 @@ function usage {
 action=$1
 shift
 version=$1
+[[ "$version" == *custom* ]] && custom=true || custom=false
 
 # args: 
     # image tag
 function build {
-    docker build -t "$1:$version-buster" .
+    if [ "$custom" = true ]
+    then 
+        docker build -f Dockerfile.custom -t "$1:$version-buster" .
+    else
+        docker build -t "$1:$version-buster" .
+    fi
 }
 
 # args: 
     # image tag
 function release {
     docker image push "$1:$version-buster"
-    docker tag "$1:$version-buster" "$1:latest"
-    docker image push "$1:latest"
+    if [ "$custom" = true ]
+    then 
+        docker tag "$1:$version-buster" "$1:custom-latest"
+        docker image push "$1:custom-latest"
+    else
+        docker tag "$1:$version-buster" "$1:latest"
+        docker image push "$1:latest"
+    fi
 }
 
 # args: 
@@ -62,7 +74,12 @@ then
 elif [[ "$action" == "check" ]]
 then
     query "$DOCKERHUB_USERNAME/$REPOSITORY"
-    check
+    if [ "$custom" = true ]
+    then 
+        echo "** Using custom version - skipping version check"
+    else
+        check
+    fi
 else
     usage
 fi

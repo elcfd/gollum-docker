@@ -4,7 +4,7 @@ WORKDIR     /build
 
 RUN         apt -y update && \
             apt -y install cmake && \
-            git clone --depth 1 -b mermaid https://github.com/elcfd/gollum && \
+            git clone --depth 1 https://github.com/elcfd/gollum && \
             cd gollum && \
             bundle install && \
             rake build

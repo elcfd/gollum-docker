@@ -12,12 +12,12 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
       - name: install taskfile
         uses: arduino/setup-task@v1
       - name: source code checkout
         uses: actions/checkout@v2
+      - name: run shellcheck
+        uses: ludeeus/action-shellcheck@master
       - name: build
         run: task VERSION="$VERSION" build
       - name: check

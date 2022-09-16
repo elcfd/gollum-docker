@@ -21,9 +21,9 @@ version=$1
 function build {
     if [ "$custom" = true ]
     then 
-        VERSION="$(echo $version | cut -d "-" -f 1)"
-        SRC_REV="$(echo $version | cut -d "-" -f 2)"
-        docker build -f custom/Dockerfile.custom --build-arg GOLLUM_VERSION=$VERSION --build-arg SRC_REV=$SRC_REV -t "$1:$version-buster" .
+        VERSION="$(echo "$version" | cut -d "-" -f 1)"
+        SRC_REV="$(echo "$version" | cut -d "-" -f 2)"
+        docker build -f custom/Dockerfile.custom --build-arg GOLLUM_VERSION="$VERSION" --build-arg SRC_REV="$SRC_REV" -t "$1:$version-buster" .
     else
         docker build -t "$1:$version-buster" .
     fi

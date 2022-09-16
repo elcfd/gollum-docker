@@ -6,7 +6,7 @@ SRC_REV=$1
 
 git clone https://github.com/gollum/gollum
 cd gollum
-git checkout $SRC_REV
+git checkout "$SRC_REV"
 git config user.email "you@example.com"
 git config user.name "Your Name"
 [ "$patches" = true ] && git am < /build/custom/patches/*

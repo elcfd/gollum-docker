@@ -7,7 +7,7 @@ ADD         custom /build/custom
 
 RUN         apt -y update && \
             apt -y install cmake && \
-            ./custom/custom_build.sh $GOLLUM_VERSION $SRC_REV
+            ./custom/custom_build.sh $SRC_REV
 
 FROM        ruby
 ARG         GOLLUM_VERSION

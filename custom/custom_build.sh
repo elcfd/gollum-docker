@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-GOLLUM_VERSION=$1
-shift
 SRC_REV=$1
 
 [ "$(ls -A /build/custom/patches)" ] && patches=true || patches=false

@@ -23,7 +23,7 @@ To run the container:
 docker container run -d --restart=unless-stopped -v /path/to/wiki/folder/:/wiki -p 8000:80 elcfd/gollum:latest
 ```
 
-**NB.** The Dockerfile specifies the port that gollum runs on is 80.
+**NB.** The Dockerfile specifies the port that gollum runs on as 80.
 
 ## Development
 

@@ -1,19 +1,20 @@
 FROM        ruby AS builder
+ARG         GOLLUM_VERSION
+ARG         SRC_REV
 
 WORKDIR     /build
+ADD         custom /build/custom
 
 RUN         apt -y update && \
             apt -y install cmake && \
-            git clone --depth 1 https://github.com/elcfd/gollum && \
-            cd gollum && \
-            bundle install && \
-            rake build
+            ./custom/custom_build.sh $GOLLUM_VERSION $SRC_REV
 
 FROM        ruby
+ARG         GOLLUM_VERSION
 
 LABEL       maintainer  "elcfd <elcfd@whitetree.xyz>"
 
-COPY        --from=builder /build/gollum/pkg/gollum-* /tmp/
+COPY        --from=builder /build/gollum/pkg/gollum-$GOLLUM_VERSION.gem /tmp/
 
 WORKDIR     /tmp
 
@@ -26,10 +27,10 @@ RUN         apt -y update && \
             gem install \
                 github-linguist \
                 org-ruby \
-                gollum-* \
+                gollum-$GOLLUM_VERSION.gem \
                 mini_racer \
                 thin && \
-            rm gollum-*
+            rm gollum-$GOLLUM_VERSION.gem
 
 WORKDIR     /wiki
 ENTRYPOINT  ["gollum", "--port", "80"]

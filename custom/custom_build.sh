@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-SRC_REV=$1
+SRC_REV="$1"
 
 [ "$(ls -A /build/custom/patches)" ] && patches=true || patches=false
 

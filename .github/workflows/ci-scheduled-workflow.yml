@@ -1,7 +1,7 @@
 name: gollum docker scheduled ci
 on:
   schedule:
-    - cron: '0 11 * * *'
+    - cron: '03 10 * * *'
 
 env:
   DOCKERHUB_USERNAME: elcfd

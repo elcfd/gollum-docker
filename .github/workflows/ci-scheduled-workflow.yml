@@ -14,15 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: [master, release]
         version: [5.3.0, 5.3.0-869292ed-custom]
     steps:
       - name: install taskfile
         uses: arduino/setup-task@v1
       - name: source code checkout
         uses: actions/checkout@v2
-        with:
-          ref: "${{matrix.branch}}"
       - name: run shellcheck
         uses: ludeeus/action-shellcheck@master
       - name: build

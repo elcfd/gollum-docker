@@ -1,0 +1,35 @@
+name: gollum docker scheduled ci
+on:
+  schedule:
+    - cron: '0 11 * * *'
+
+env:
+  DOCKERHUB_USERNAME: elcfd
+  VERSION: 5.3.0
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch:
+          - master
+          - release
+    steps:
+      - name: install taskfile
+        uses: arduino/setup-task@v1
+      - name: source code checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{matrix.branch}}
+      - name: run shellcheck
+        uses: ludeeus/action-shellcheck@master
+      - name: build
+        run: task VERSION="$VERSION" build
+      - name: check
+        run: task VERSION="$VERSION" check
+      - name: release
+        if: contains(github.ref, 'release')
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+          task VERSION="$VERSION" release

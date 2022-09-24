@@ -1,8 +1,6 @@
 name: gollum docker ci
 on:
   push:
-  schedule:
-    - cron: '0 21 * * *'
 
 env:
   DOCKERHUB_USERNAME: elcfd

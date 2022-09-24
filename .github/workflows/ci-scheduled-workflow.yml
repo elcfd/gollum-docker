@@ -1,9 +1,9 @@
 name: gollum docker scheduled ci
 on:
-  # TODO: remove
-  push:
   schedule:
-    - cron: '03 10 * * *'
+    - cron: '40 09 * * *'
+    - cron: '40 10 * * *'
+    - cron: '40 11 * * *'
 
 env:
   DOCKERHUB_USERNAME: elcfd

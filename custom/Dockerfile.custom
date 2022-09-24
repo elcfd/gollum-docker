@@ -3,7 +3,7 @@ ARG         GOLLUM_VERSION
 ARG         SRC_REV
 
 WORKDIR     /build
-ADD         custom /build/custom
+COPY        custom/ /build/custom/
 
 RUN         apt -y update && \
             apt -y install cmake && \

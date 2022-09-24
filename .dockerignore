@@ -3,3 +3,4 @@
 LICENSE
 *.yml
 image_creator.sh
+**/.gitignore

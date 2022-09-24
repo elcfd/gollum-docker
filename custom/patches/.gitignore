@@ -1,0 +1,6 @@
+# Ignore everyting
+*
+
+# But not
+!.gitignore
+!*.patch

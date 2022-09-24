@@ -4,11 +4,15 @@ on:
 
 env:
   DOCKERHUB_USERNAME: elcfd
-  VERSION: 5.3.0
 
 jobs:
   ci:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version:
+          - 5.3.0
+          - 5.3.0-869292ed-custom
     steps:
       - name: install taskfile
         uses: arduino/setup-task@v1
@@ -17,11 +21,11 @@ jobs:
       - name: run shellcheck
         uses: ludeeus/action-shellcheck@master
       - name: build
-        run: task VERSION="$VERSION" build
+        run: task VERSION="${{matrix.version}}" build
       - name: check
-        run: task VERSION="$VERSION" check
+        run: task VERSION="${{matrix.version}}" check
       - name: release
         if: contains(github.ref, 'release')
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
-          task VERSION="$VERSION" release
+          task VERSION="${{matrix.version}}" release

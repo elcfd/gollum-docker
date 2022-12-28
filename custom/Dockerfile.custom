@@ -1,4 +1,4 @@
-FROM        ruby AS builder
+FROM        ruby:3.1 AS builder
 ARG         GOLLUM_VERSION
 ARG         SRC_REV
 
@@ -9,7 +9,7 @@ RUN         apt -y update && \
             apt -y install cmake && \
             ./custom/custom_build.sh $SRC_REV
 
-FROM        ruby
+FROM        ruby:3.1
 ARG         GOLLUM_VERSION
 
 LABEL       maintainer  "elcfd <elcfd@whitetree.xyz>"

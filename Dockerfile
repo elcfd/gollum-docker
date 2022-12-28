@@ -1,4 +1,4 @@
-FROM        ruby
+FROM        ruby:3.1
 
 LABEL       maintainer  "elcfd <elcfd@whitetree.xyz>"
 

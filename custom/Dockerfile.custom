@@ -12,7 +12,7 @@ RUN         apt -y update && \
 FROM        ruby:3.1
 ARG         GOLLUM_VERSION
 
-LABEL       maintainer  "elcfd <elcfd@whitetree.xyz>"
+LABEL       maintainer  "elcfd <me@elcfd.com>"
 
 COPY        --from=builder /build/gollum/pkg/gollum-$GOLLUM_VERSION.gem /tmp/
 

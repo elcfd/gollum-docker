@@ -1,6 +1,6 @@
 FROM        ruby:3.1
 
-LABEL       maintainer  "elcfd <elcfd@whitetree.xyz>"
+LABEL       maintainer  "elcfd <me@elcfd.com>"
 
 RUN         apt -y update && \
             apt -y install \
